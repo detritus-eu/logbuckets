@@ -11,6 +11,10 @@
             <Setter Property="Margin" Value="10"/>
             <Setter Property="Padding" Value="10"/>
         </Style>
+        <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource CheckBoxStyle}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="#aabbaa"/>
+        </Style>
     </UserControl.Resources>
 
     <DockPanel>
@@ -30,15 +34,19 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Bucket Name:" Style="{StaticResource label}"/>
                     <TextBox Text="{Binding Bucket.Name, UpdateSourceTrigger=PropertyChanged, Delay=1000}" 
                              Width="200" Margin="5" HorizontalAlignment="Left"
                              Grid.Column="1"/>
-                    <CheckBox Content="Tray Notifications" IsChecked="{Binding Bucket.Notify, UpdateSourceTrigger=PropertyChanged}" 
-                              Margin="5" Foreground="#aabbaa"
+                    
+                    <CheckBox Content="Dedupe" IsChecked="{Binding Bucket.Dedupe, UpdateSourceTrigger=PropertyChanged}" 
                               Grid.Row="1" Grid.Column="1"/>
+
+                    <CheckBox Content="Tray Notifications" IsChecked="{Binding Bucket.Notify, UpdateSourceTrigger=PropertyChanged}" 
+                              Grid.Row="2" Grid.Column="1"/>
 
                 </Grid>
             </GroupBox>

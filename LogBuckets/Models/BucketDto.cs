@@ -18,6 +18,7 @@ namespace LogBuckets.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public bool Notify { get; set; }
+        public bool Dedupe { get; set; }
         public FilterOptions Filter { get; set; }
         public string[] Buffer { get; set; }
     }

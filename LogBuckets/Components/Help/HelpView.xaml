@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="LogBuckets.Components.Help.HelpView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LogBuckets.Components.Help"
+             mc:Ignorable="d" 
+             Margin="10">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+
+            <TextBlock Text="Entropia Log Buckets" Style="{StaticResource header1}"/>
+            <TextBlock>
+                This is a simple utility to allow you to create a number of filters for the chat log, which will dump matching lines into a 'bucket'.  Each bucket has its own persistent history and can optionally display tray notificiations.
+            </TextBlock>
+
+            <TextBlock Text="Configuration" Style="{StaticResource header1}"/>
+            <TextBlock>
+                <Bold>Log File</Bold> - Point this to your chat.log.  If it's in the usual location you may not need to change this.<LineBreak/>
+                <Bold>Max Bucket Size</Bold> - Maximum lines to store in the history for each bucket (1-2000).
+            </TextBlock>
+
+            <TextBlock Text="Usage" Style="{StaticResource header1}"/>
+            <TextBlock>
+                The <Bold>Main Log</Bold> tab shows a realtime history of the last 100 lines of the log file. Click the <Bold>'+'</Bold> button to add a new bucket.  Buckets are saved to disk when you exit the application and restored on startup.  Closing a particular bucket tab will permanently delete that bucket.
+            </TextBlock>
+
+            <TextBlock Text="Bucket Properties" Style="{StaticResource header1}"/>
+            <TextBlock>
+                <Bold>Name</Bold> - For your reference. This shows as the header for the tab, and also the title of the notification if you enable them.<LineBreak/>
+                <Bold>Dedupe</Bold> - Checking this box will perform deduplication of incoming messages against the current bucket buffer, meaning any messages already existing will be ignored (useful against spam). This has a performance cost, so may not be recommended for very large bucket sizes or very active buckets.<LineBreak/>
+                <Bold>Tray Notifications</Bold> - Check this box to receive toast notification when a new line is added to the bucket.  Be aware that if you have a very active bucket this could be relatively annoying.<LineBreak/>
+            </TextBlock>
+
+            <TextBlock Text="Filter Properties" Style="{StaticResource header1}"/>
+            <TextBlock>
+                All matches are case-insensitive.<LineBreak/>
+                <Bold>Keywords</Bold> - Will match if the content of the message contains any of the <Bold>space separated</Bold> keywords you input (e.g. 'wts box' will match any message containing 'wts' or 'box').<LineBreak/>
+                <Bold>Channel</Bold> - Will match if the channel name contains what you input (e.g. 'ark' will match '#arkadia' and '#arktrade').<LineBreak/>
+                <Bold>Author</Bold> - Will match if the author of the message contains what you input (e.g. 'troll' will match '[Detritus the Troll]')
+            </TextBlock>
+
+            <TextBlock Text="Additional Info" Style="{StaticResource header1}"/>
+            <TextBlock>
+                This was written quick-and-dirty and I make no guarantee that using it won't completely destroy your computer, your life, or the universe. By using it you accept these terms.<LineBreak/>
+                Full credit to Killer Bee for the idea.<LineBreak/>
+                If it's misbehaving or you have a suggestion for improvement you can reach me in game 'Detritus the Troll', or email detritus@pshift.de.
+            </TextBlock>
+
+        </StackPanel>
+    </ScrollViewer>
+
+
+</UserControl>

@@ -35,6 +35,7 @@ namespace LogBuckets
             Container.Register<IBucket, Bucket>();
             Container.Register<IFilter, Filter>();
             Container.Register<IToaster, Toaster>();
+            Container.Register<IDeduper, Deduper>();
 
             // UI
 
@@ -45,7 +46,7 @@ namespace LogBuckets
             Container.Register<Components.Buckets.LogViewModel>();
             Container.Register<Components.Buckets.BucketTab>();
             Container.Register<Components.Buckets.AddTab>();
-
+            Container.Register<Components.Help.HelpViewModel>();
         }
     }
 }

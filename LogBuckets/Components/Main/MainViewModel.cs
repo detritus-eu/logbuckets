@@ -1,4 +1,5 @@
 ﻿using LogBuckets.Components.Buckets;
+using LogBuckets.Components.Help;
 using LogBuckets.Components.Navbar;
 using LogBuckets.Components.Settings;
 using LogBuckets.Models;
@@ -27,7 +28,8 @@ namespace LogBuckets.Components.Main
         public MainViewModel(
             NavbarViewModel navbarVm,
             BucketsViewModel bucketsVm,
-            SettingsViewModel settingsVm)
+            SettingsViewModel settingsVm,
+            HelpViewModel helpVm)
         {
             NavbarVm = navbarVm ?? throw new ArgumentNullException(nameof(navbarVm));
 
@@ -35,6 +37,7 @@ namespace LogBuckets.Components.Main
             {
                 bucketsVm,
                 settingsVm,
+                helpVm
             };
         }
 

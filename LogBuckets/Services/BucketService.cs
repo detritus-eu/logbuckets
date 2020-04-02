@@ -36,6 +36,7 @@ namespace LogBuckets.Services
 
         public IEnumerable<string> GetIds()
         {
+            if (!Directory.Exists(_configMgr.Config.BucketDirectory)) yield break;
             foreach (var file in Directory.EnumerateFiles(_configMgr.Config.BucketDirectory, $"*.{_configMgr.Config.BucketExtension}"))
                 yield return GetIdFromPath(file);
         }

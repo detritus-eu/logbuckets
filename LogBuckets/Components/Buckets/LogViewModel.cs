@@ -14,6 +14,7 @@ namespace LogBuckets.Components.Buckets
     internal sealed class LogViewModel: BucketTab, INotifyPropertyChanged
     {
         public const string Label = "Main Log";
+        private const int BufferSize = 100;
 
         #region Private Fields
 
@@ -35,6 +36,7 @@ namespace LogBuckets.Components.Buckets
 
             bucket.Name = Label;
             In = _ringBuffer.In;
+            _ringBuffer.Size = BufferSize;
 
             _logWatcher.SynchronizationContext = SynchronizationContext.Current;
             _logWatcher.Line += In;

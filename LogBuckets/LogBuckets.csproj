@@ -92,12 +92,17 @@
     <Compile Include="Components\Buckets\LogViewModel.cs" />
     <Compile Include="Components\Buckets\IBucketTab.cs" />
     <Compile Include="Components\Buckets\TabTemplateSelector.cs" />
+    <Compile Include="Components\Help\HelpView.xaml.cs">
+      <DependentUpon>HelpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Help\HelpViewModel.cs" />
     <Compile Include="Models\BucketDto.cs" />
     <Compile Include="Models\EuLogEntry.cs" />
     <Compile Include="Services\BucketService.cs" />
     <Compile Include="Services\IBucketService.cs" />
     <Compile Include="Shared\Pipes\Bucket.cs" />
     <Compile Include="Models\Configuration.cs" />
+    <Compile Include="Shared\Pipes\Deduper.cs" />
     <Compile Include="Shared\Pipes\Filter.cs" />
     <Compile Include="Services\ConfigurationManager.cs" />
     <Compile Include="Shared\Pipes\IBucket.cs" />
@@ -109,6 +114,7 @@
     <Compile Include="Shared\ErrorBox.cs" />
     <Compile Include="Shared\IMenuAction.cs" />
     <Compile Include="Shared\INavigation.cs" />
+    <Compile Include="Shared\Pipes\IDeduper.cs" />
     <Compile Include="Shared\Pipes\IFilter.cs" />
     <Compile Include="Shared\Pipes\IStringEventPipe.cs" />
     <Compile Include="Shared\Pipes\IStringRing.cs" />
@@ -189,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\Buckets\LogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\Help\HelpView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

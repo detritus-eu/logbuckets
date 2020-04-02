@@ -8,6 +8,8 @@ namespace LogBuckets.Models
     internal sealed class Configuration: INotifyPropertyChanged
     {
         private const int DefaultBucketSize = 200;
+        private const int MinBucketSize = 1;
+        private const int MaxBucketSize = 2000;
         private const string DefaultBucketExtension = "json";
         private const string DefaultBucketDirectoryName = "buckets";
         private const string EntropiaChatDirectory = "Entropia Universe";
@@ -48,7 +50,10 @@ namespace LogBuckets.Models
             {
                 if (_bucketSize != value)
                 {
-                    _bucketSize = value;
+                    var size = value;
+                    if (size < MinBucketSize) size = MinBucketSize;
+                    if (size > MaxBucketSize) size = MaxBucketSize;
+                    _bucketSize = size;
                     RaisePropertyChanged(nameof(BucketSize));
                 }
             }

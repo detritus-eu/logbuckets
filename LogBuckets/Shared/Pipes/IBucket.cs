@@ -12,6 +12,7 @@ namespace LogBuckets.Shared.Pipes
         string Name { get; set; }
         bool Notify { get; set; }
         int Size { get; set; }
+        bool Dedupe { get; set; }
 
         void Initialize(string id);
         void Initialize(BucketDto dto);

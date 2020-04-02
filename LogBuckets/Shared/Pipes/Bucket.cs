@@ -17,6 +17,7 @@ namespace LogBuckets.Shared.Pipes
         #region Private Fields
 
         private readonly IToaster _toaster;
+        private readonly IDeduper _deduper;
 
         private bool _initialized;
 
@@ -27,14 +28,21 @@ namespace LogBuckets.Shared.Pipes
         public Bucket(
             IStringRing ringBuffer,
             IFilter filter,
-            IToaster toaster)
+            IToaster toaster,
+            IDeduper deduper
+            )
         {
             Buffer = ringBuffer ?? throw new ArgumentNullException(nameof(ringBuffer));
             Filter = filter ?? throw new ArgumentNullException(nameof(filter));
             _toaster = toaster ?? throw new ArgumentNullException(nameof(toaster));
+            _deduper = deduper ?? throw new ArgumentNullException(nameof(deduper));
+
+            _deduper.Items = Buffer.Items;
+            _deduper.Selector = (_) => { return _?.Substring(21); }; //chop off the timestamp
 
             _toaster.Passthrough = true;
             Name = DefaultName;
+            Dedupe = true;
         }
 
         #endregion
@@ -93,15 +101,33 @@ namespace LogBuckets.Shared.Pipes
             }
         }
 
+        private bool _dedupe;
+        public bool Dedupe
+        {
+            get { return _dedupe; }
+            set
+            {
+                if (_dedupe != value)
+                {
+                    _dedupe = value;
+                    RaisePropertyChanged(nameof(Dedupe));
+                    _deduper.Passthrough = !Dedupe;
+                }
+            }
+        }
+
+
+
         public void Initialize(BucketDto dto)
         {
             if (dto == null) throw new ArgumentNullException(nameof(dto));
 
             Name = dto.Name;
             Notify = dto.Notify;
+            Dedupe = dto.Dedupe;
             Filter.Channel = dto.Filter.Channel;
             Filter.Author = dto.Filter.Author;
-            Filter.Keyword = dto.Filter.Keyword;
+            Filter.Keywords = dto.Filter.Keyword;
             Buffer.Clear();
             Buffer.AppendRange(dto.Buffer);
 
@@ -115,9 +141,10 @@ namespace LogBuckets.Shared.Pipes
             if (_initialized) return;
 
             In = Filter.In;
-            Filter.Out += _toaster.In;
-            _toaster.Out += Buffer.In;
-            Buffer.Out += (o, e) => { RaiseOut(e); };
+            Filter.Out += _deduper.In;
+            _deduper.Out += Buffer.In;
+            Buffer.Out += _toaster.In;
+            _toaster.Out += (o, e) => { RaiseOut(e); };
 
             _initialized = true;
         }
@@ -127,10 +154,11 @@ namespace LogBuckets.Shared.Pipes
                 Id = Id,
                 Name = Name,
                 Notify = Notify,
+                Dedupe = Dedupe,
                 Filter = new BucketDto.FilterOptions {
                     Channel = Filter.Channel,
                     Author = Filter.Author,
-                    Keyword = Filter.Keyword
+                    Keyword = Filter.Keywords
                 },
                 Buffer = Buffer.Items.ToArray()
             };

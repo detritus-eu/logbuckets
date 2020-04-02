@@ -39,18 +39,18 @@ namespace LogBuckets.Shared.Pipes
             }
         }
 
-        private string _keyword;
-        private string _keyword_lower;
-        public string Keyword
+        private string _keywords;
+        private string _keywords_lower;
+        public string Keywords
         {
-            get { return _keyword; }
+            get { return _keywords; }
             set
             {
-                if (_keyword != value)
+                if (_keywords != value)
                 {
-                    _keyword = value;
-                    _keyword_lower = value?.ToLower();
-                    RaisePropertyChanged(nameof(Keyword));
+                    _keywords = value;
+                    _keywords_lower = value?.ToLower();
+                    RaisePropertyChanged(nameof(Keywords));
                 }
             }
         }
@@ -63,13 +63,20 @@ namespace LogBuckets.Shared.Pipes
             var entry = new EuLogEntry(data.ToLower());
             if ((!string.IsNullOrEmpty(_channel_lower) && entry.Channel.Contains(_channel_lower))
                 || (!string.IsNullOrEmpty(_author_lower) && entry.Author.Contains(_author_lower))
-                || (!string.IsNullOrEmpty(_keyword_lower) && entry.Message.Contains(_keyword_lower)))
+                || (!string.IsNullOrEmpty(_keywords_lower) && SplitMatch(entry.Message, _keywords_lower)))
                 return data;
             return null;
         }
 
+        private bool SplitMatch(string line, string keywords)
+        {
+            foreach (var kw in keywords.Split(' '))
+                if (line.Contains(kw)) return true;
+            return false;
+        }
 
-        private bool IsValid() => !string.IsNullOrEmpty(Keyword) || !string.IsNullOrEmpty(Channel) || !string.IsNullOrEmpty(Author);
+
+        private bool IsValid() => !string.IsNullOrEmpty(Keywords) || !string.IsNullOrEmpty(Channel) || !string.IsNullOrEmpty(Author);
 
 
         #region INotifyPropertyChanged
