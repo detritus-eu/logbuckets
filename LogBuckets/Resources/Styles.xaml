@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:LogBuckets.Resources"
+                    xmlns:c="clr-namespace:LogBuckets.Controls">
+
+
+
+    <Style x:Key="label" TargetType="{x:Type TextBlock}">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Foreground" Value="#aabbaa"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+
+    <Style x:Key="GlyphButtonStyle" TargetType="{x:Type c:GlyphButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border x:Name="border"
+                            SnapsToDevicePixels="True"
+                            BorderBrush="{Binding Path=NormalBorderColor, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                            BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                            CornerRadius="{Binding Path=CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                            Background="{Binding Path=NormalBackground, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                        <Path x:Name="path"
+                              Data="{Binding Path=Glyph.Data, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                              Margin="{Binding Path=Padding, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                              Stretch="Uniform"
+                              Fill="{Binding Path=NormalForeground, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{Binding Path=HoverBorderColor, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                            <Setter TargetName="border" Property="Background" Value="{Binding Path=HoverBackground, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                            <Setter TargetName="path" Property="Fill" Value="{Binding Path=HoverForeground, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{Binding Path=DisabledBorderColor, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                            <Setter TargetName="border" Property="Background" Value="{Binding Path=DisabledBackground, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                            <Setter TargetName="path" Property="Fill" Value="{Binding Path=DisabledForeground, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type c:GlyphButton}" BasedOn="{StaticResource GlyphButtonStyle}"/>
+
+
+
+</ResourceDictionary>

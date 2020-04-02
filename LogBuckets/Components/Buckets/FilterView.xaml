@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="LogBuckets.Components.Buckets.FilterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LogBuckets.Components.Buckets"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxStyle}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Keyword:" Style="{StaticResource label}"/>
+        <TextBox Text="{Binding Keyword, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
+                 Grid.Column="1"/>
+
+        <TextBlock Text="Channel:" Style="{StaticResource label}"
+                   Grid.Row="1"/>
+        <TextBox Text="{Binding Channel, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
+                 Grid.Row="1" Grid.Column="1"/>
+
+        <TextBlock Text="Author:" Style="{StaticResource label}"
+                   Grid.Row="2"/>
+        <TextBox Text="{Binding Author, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
+                 Grid.Row="2" Grid.Column="1"/>
+
+    </Grid>
+    
+</UserControl>

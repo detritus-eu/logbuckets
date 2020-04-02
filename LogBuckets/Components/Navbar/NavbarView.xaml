@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="LogBuckets.Components.Navbar.NavbarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LogBuckets.Components.Navbar"
+             xmlns:c="clr-namespace:LogBuckets.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type c:GlyphButton}" BasedOn="{StaticResource GlyphButtonStyle}">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <StackPanel Width="50"
+                Background="Black">
+
+        <ItemsControl ItemsSource="{Binding Buttons}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <c:GlyphButton Glyph="{Binding Glyph}"
+                                   Command="{Binding Command}"
+                                   CommandParameter="{Binding CommandParameter}"
+                                   ToolTip="{Binding ToolTip}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+    </StackPanel>
+    
+</UserControl>
