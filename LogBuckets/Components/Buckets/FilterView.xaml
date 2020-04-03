@@ -26,8 +26,8 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Keywords:" Style="{StaticResource label}"/>
-        <TextBox Text="{Binding Keywords, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
+        <TextBlock Text="Message:" Style="{StaticResource label}"/>
+        <TextBox Text="{Binding Message, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
                  Grid.Column="1"/>
 
         <TextBlock Text="Channel:" Style="{StaticResource label}"

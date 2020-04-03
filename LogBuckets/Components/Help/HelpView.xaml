@@ -24,8 +24,8 @@
 
             <TextBlock Text="Configuration" Style="{StaticResource header1}"/>
             <TextBlock>
-                <Bold>Log File</Bold> - Point this to your chat.log.  If it's in the usual location you may not need to change this.<LineBreak/>
-                <Bold>Max Bucket Size</Bold> - Maximum lines to store in the history for each bucket (1-2000).
+                <Bold>Log File</Bold> - Point this to your chat.log.  If it's in the usual location you may not need to change this.<LineBreak/>               
+                <Bold>Font Size</Bold> - Overall font size.
             </TextBlock>
 
             <TextBlock Text="Usage" Style="{StaticResource header1}"/>
@@ -36,16 +36,31 @@
             <TextBlock Text="Bucket Properties" Style="{StaticResource header1}"/>
             <TextBlock>
                 <Bold>Name</Bold> - For your reference. This shows as the header for the tab, and also the title of the notification if you enable them.<LineBreak/>
+                <Bold>Size</Bold> - Maximum lines to store in the history (1-2000).<LineBreak/>
                 <Bold>Dedupe</Bold> - Checking this box will perform deduplication of incoming messages against the current bucket buffer, meaning any messages already existing will be ignored (useful against spam). This has a performance cost, so may not be recommended for very large bucket sizes or very active buckets.<LineBreak/>
                 <Bold>Tray Notifications</Bold> - Check this box to receive toast notification when a new line is added to the bucket.  Be aware that if you have a very active bucket this could be relatively annoying.<LineBreak/>
             </TextBlock>
 
             <TextBlock Text="Filter Properties" Style="{StaticResource header1}"/>
             <TextBlock>
-                All matches are case-insensitive.<LineBreak/>
-                <Bold>Keywords</Bold> - Will match if the content of the message contains any of the <Bold>space separated</Bold> keywords you input (e.g. 'wts box' will match any message containing 'wts' or 'box').<LineBreak/>
-                <Bold>Channel</Bold> - Will match if the channel name contains what you input (e.g. 'ark' will match '#arkadia' and '#arktrade').<LineBreak/>
-                <Bold>Author</Bold> - Will match if the author of the message contains what you input (e.g. 'troll' will match '[Detritus the Troll]')
+                All of the filter properties work the same way, they just operate on different sections of the log entry. For any of the input boxes, you may enter one or more keywords separated by space. By default all keywords are optional, unless only a single keyword is entered or you mark them otherwise with an operator.  The following operators are supported:<LineBreak/>
+                <Bold>+</Bold> - Must contain this keyword. This is implicit if you only input a single keyword with no other operators.<LineBreak/>
+                <Bold>-</Bold> - May not contain this keyword.<LineBreak/>
+                <Bold>()</Bold> - Grouping operators (may be nested).<LineBreak/>
+                <Bold>Message</Bold> - Matches against the content of the message.<LineBreak/>
+                <Bold>Channel</Bold> - Matches against the channel name.<LineBreak/>
+                <Bold>Author</Bold> - Matches against the author of the message.<LineBreak/>
+                All of the sections with input must have a match for the line to be included. Leave a section blank to accept anything for that section.  At least one section must have input (all sections blank will match no lines).<LineBreak/>
+            </TextBlock>
+
+            <TextBlock Text="Examples" Style="{StaticResource header1}"/>
+            <TextBlock>
+                <Bold>Message = '+wts +box'</Bold> - Matches "WTS [Easter Strongbox]" but not "WTS sweat"<LineBreak/>
+                <Bold>Message = 'wtb buy'</Bold> - Matches "WTB stuff" and "Buying stuff"<LineBreak/>
+                <Bold>Message = '+wts +(easter halloween)'</Bold> - Matches "WTS [Easter Strongbox]" and "WTS [Halloween Strongbox]" but not "WTS [Summer Strongbox]"<LineBreak/>
+                <Bold>Channel = '+trad -caly'</Bold> - Matches "#arktrade" and "#rocktrading" but not "#calytrade"<LineBreak/>                
+                <Bold>Channel = 'system', Message = 'gained'</Bold> - Matches skill gains<LineBreak/>
+                <Bold>Message = '(+(wtb buy) +(ore enm)) (+(wts sell) +sweat)'</Bold> - You get the idea<LineBreak/>
             </TextBlock>
 
             <TextBlock Text="Additional Info" Style="{StaticResource header1}"/>

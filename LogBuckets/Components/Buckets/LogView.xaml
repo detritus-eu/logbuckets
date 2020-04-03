@@ -10,7 +10,13 @@
     <DockPanel>
         <ScrollViewer HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Lines}"/>
+            <ItemsControl ItemsSource="{Binding Lines}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBox Text="{Binding ., Mode=OneTime}" IsReadOnly="True" BorderThickness="0" Background="Transparent"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
     </DockPanel>
     

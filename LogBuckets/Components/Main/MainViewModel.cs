@@ -15,7 +15,6 @@ namespace LogBuckets.Components.Main
 {
     internal sealed class MainViewModel: INotifyPropertyChanged
     {
-
         #region Private Fields
 
         private readonly IList<IViewModel> _vms;
@@ -39,6 +38,7 @@ namespace LogBuckets.Components.Main
                 settingsVm,
                 helpVm
             };
+
         }
 
 
@@ -79,6 +79,7 @@ namespace LogBuckets.Components.Main
                 }
             }
         }
+
 
         public void OnLoaded(object sender, RoutedEventArgs e)
         {

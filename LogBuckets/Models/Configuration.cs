@@ -7,9 +7,10 @@ namespace LogBuckets.Models
 {
     internal sealed class Configuration: INotifyPropertyChanged
     {
-        private const int DefaultBucketSize = 200;
-        private const int MinBucketSize = 1;
-        private const int MaxBucketSize = 2000;
+
+        private const int DefaultFontSize = 14;
+        private const int MinFontSize = 6;
+        private const int MaxFontSize = 48;
         private const string DefaultBucketExtension = "json";
         private const string DefaultBucketDirectoryName = "buckets";
         private const string EntropiaChatDirectory = "Entropia Universe";
@@ -19,9 +20,9 @@ namespace LogBuckets.Models
         public Configuration()
         {
             LogFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), EntropiaChatDirectory, EntropiaLogFile);
-            BucketSize = DefaultBucketSize;
             BucketDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), DefaultBucketDirectoryName);
             BucketExtension = DefaultBucketExtension;
+            FontSize = DefaultFontSize;
         }
 
         public string BucketDirectory { get; }
@@ -42,19 +43,20 @@ namespace LogBuckets.Models
             }
         }
 
-        private int _bucketSize;
-        public int BucketSize
+
+        private int _fontSize;
+        public int FontSize
         {
-            get { return _bucketSize; }
+            get { return _fontSize; }
             set
             {
-                if (_bucketSize != value)
+                if (_fontSize != value)
                 {
                     var size = value;
-                    if (size < MinBucketSize) size = MinBucketSize;
-                    if (size > MaxBucketSize) size = MaxBucketSize;
-                    _bucketSize = size;
-                    RaisePropertyChanged(nameof(BucketSize));
+                    if (size < MinFontSize) size = MinFontSize;
+                    if (size > MaxFontSize) size = MaxFontSize;
+                    _fontSize = size;
+                    RaisePropertyChanged(nameof(FontSize));
                 }
             }
         }

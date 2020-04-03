@@ -13,6 +13,9 @@ namespace LogBuckets.Shared.Pipes
     internal sealed class Bucket: StringEventPipe, IBucket
     {
         private const string DefaultName = "New";
+        private const int DefaultSize = 100;
+        private const int MinSize = 1;
+        private const int MaxSize = 2000;
 
         #region Private Fields
 
@@ -40,8 +43,11 @@ namespace LogBuckets.Shared.Pipes
             _deduper.Items = Buffer.Items;
             _deduper.Selector = (_) => { return _?.Substring(21); }; //chop off the timestamp
 
+            Filter.PropertyChanged += (o,e) => { Buffer.Clear(); };
+
             _toaster.Passthrough = true;
             Name = DefaultName;
+            Size = DefaultSize;
             Dedupe = true;
         }
 
@@ -94,7 +100,10 @@ namespace LogBuckets.Shared.Pipes
             {
                 if (_size != value)
                 {
-                    _size = value;
+                    var size = value;
+                    if (size < MinSize) size = MinSize;
+                    if (size > MaxSize) size = MaxSize;
+                    _size = size;
                     RaisePropertyChanged(nameof(Size));
                     Buffer.Size = Size;
                 }
@@ -123,11 +132,12 @@ namespace LogBuckets.Shared.Pipes
             if (dto == null) throw new ArgumentNullException(nameof(dto));
 
             Name = dto.Name;
+            Size = dto.Size;
             Notify = dto.Notify;
             Dedupe = dto.Dedupe;
             Filter.Channel = dto.Filter.Channel;
             Filter.Author = dto.Filter.Author;
-            Filter.Keywords = dto.Filter.Keyword;
+            Filter.Message = dto.Filter.Message;
             Buffer.Clear();
             Buffer.AppendRange(dto.Buffer);
 
@@ -153,12 +163,13 @@ namespace LogBuckets.Shared.Pipes
             {
                 Id = Id,
                 Name = Name,
+                Size = Size,
                 Notify = Notify,
                 Dedupe = Dedupe,
                 Filter = new BucketDto.FilterOptions {
                     Channel = Filter.Channel,
                     Author = Filter.Author,
-                    Keyword = Filter.Keywords
+                    Message = Filter.Message
                 },
                 Buffer = Buffer.Items.ToArray()
             };

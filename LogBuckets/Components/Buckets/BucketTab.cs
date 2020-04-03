@@ -60,10 +60,7 @@ namespace LogBuckets.Components.Buckets
 
         private void Config_PropertyChanged(object sender, PropertyChangedEventArgs e) => OnConfigChanged();
 
-        protected virtual void OnConfigChanged()
-        {
-            Bucket.Size = Config.BucketSize;
-        }
+        protected virtual void OnConfigChanged() { }
 
         #endregion
 

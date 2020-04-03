@@ -6,6 +6,6 @@ namespace LogBuckets.Shared.Pipes
     {
         string Channel { get; set; }
         string Author { get; set; }
-        string Keywords { get; set; }
+        string Message { get; set; }
     }
 }
