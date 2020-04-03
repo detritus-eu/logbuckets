@@ -25,7 +25,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Log File:" Style="{StaticResource label}"/>
@@ -37,21 +36,9 @@
                            ToolTip="Browse for chat log..."/>
         </StackPanel>
 
-        <TextBlock Text="Max Bucket Size:" Style="{StaticResource label}"
+        <TextBlock Text="Font Size:" Style="{StaticResource label}"
                    Grid.Row="1"/>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-            <TextBox Text="{Binding Config.BucketSize, UpdateSourceTrigger=PropertyChanged, Delay=2000}" Width="50">
-                <i:Interaction.Behaviors>
-                    <shared:RegexInputLimiterBehavior AllowedPattern="[0-9]"/>
-                </i:Interaction.Behaviors>
-            </TextBox>
-            <TextBlock Text="(1-2000)" Style="{StaticResource label}" HorizontalAlignment="Left"/>
-        </StackPanel>
-
-
-        <TextBlock Text="Font Size:" Style="{StaticResource label}"
-                   Grid.Row="2"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
             <TextBox Text="{Binding Config.FontSize, UpdateSourceTrigger=PropertyChanged, Delay=1000}" Width="50">
                 <i:Interaction.Behaviors>
                     <shared:RegexInputLimiterBehavior AllowedPattern="[0-9]"/>
