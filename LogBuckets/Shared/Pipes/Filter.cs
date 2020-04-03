@@ -76,9 +76,7 @@ namespace LogBuckets.Shared.Pipes
 
         private static bool IsMatch(string line, string matchString)
         {
-            var required = new List<int>();
-            var optional = new List<int>();
-            var negated = new List<int>();
+            var matches = new List<int>();
 
             foreach (var token in Tokenize(matchString))
             {
@@ -95,14 +93,12 @@ namespace LogBuckets.Shared.Pipes
 
                 var match = term.StartsWith("(") ? IsMatch(line, term.TrimStart('(').TrimEnd(')')) : line.Contains(term);
 
-                if (op == OperatorRequired) required.Add(match ? 1 : 0);
-                else if (op == OperatorNegated) negated.Add(!match ? 1 : 0);
-                else if (match) optional.Add(1);
+                if (op == OperatorRequired) matches.Add(match ? 1 : 0);
+                else if (op == OperatorNegated) matches.Add(!match ? 1 : 0);
+                else if (match) matches.Add(1);
             }
 
-            var total = required.Concat(negated).Concat(optional);
-
-            return total.Count() > 0 && total.Sum() == total.Count();
+            return matches.Count() > 0 && matches.Sum() == matches.Count();
         }
 
         private static IEnumerable<string> Tokenize(string expression)
