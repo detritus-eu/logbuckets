@@ -20,6 +20,8 @@ namespace LogBuckets.Models
         public int Size { get; set; }
         public bool Notify { get; set; }
         public bool Dedupe { get; set; }
+        public bool UseAudio { get; set; }
+        public string AudioFile { get; set; }
         public FilterOptions Filter { get; set; }
         public string[] Buffer { get; set; }
     }

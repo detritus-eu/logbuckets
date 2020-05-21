@@ -91,7 +91,7 @@ namespace LogBuckets.Shared.Pipes
                     }
                 }
 
-                var match = term.StartsWith("(") ? IsMatch(line, term.TrimStart('(').TrimEnd(')')) : line.Contains(term);
+                var match = term.StartsWith("(") ? IsMatch(line, term.TrimStart('(').TrimEnd(')')) : line.Contains(term.TrimStart('"').TrimEnd('"'));
 
                 if (op == OperatorRequired) matches.Add(match ? 1 : 0);
                 else if (op == OperatorNegated) matches.Add(!match ? 1 : 0);
@@ -107,18 +107,19 @@ namespace LogBuckets.Shared.Pipes
             if (string.IsNullOrEmpty(expression)) return tokens;
 
             var brace = 0;
+            var quoted = false;
             var token = string.Empty;
             for (int i = 0; i < expression.Length; i++)
             {
                 var ch = expression[i];
                 if (ch == ' ')
                 {
-                    if (token.Length > 0 && brace == 0)
+                    if (token.Length > 0 && brace == 0 && !quoted)
                     {
                         tokens.Add(token);
                         token = string.Empty;
                     }
-                    else if (brace > 0) token += ch;
+                    else if (brace > 0 || quoted) token += ch;
                     else continue;
                 }
                 else
@@ -126,7 +127,14 @@ namespace LogBuckets.Shared.Pipes
                     token += ch;
                     if (ch == '(') brace++;
                     else if (ch == ')')
+                    {
                         if (brace > 0) brace--;
+                    }
+                    else if (ch == '"')
+                    {
+                        quoted = !quoted;
+                    }
+
                 }
             }
             if (token.Length > 0) tokens.Add(token);

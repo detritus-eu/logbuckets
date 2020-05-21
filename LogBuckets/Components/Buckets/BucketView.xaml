@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LogBuckets.Components.Buckets"
+             xmlns:c="clr-namespace:LogBuckets.Controls"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -36,6 +37,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Bucket Name:" Style="{StaticResource label}"/>
@@ -49,11 +51,23 @@
                              Width="50" Margin="5" HorizontalAlignment="Left"
                              Grid.Row ="1" Grid.Column="1"/>
 
+                    <TextBlock Text="Audio Alert:" Style="{StaticResource label}"
+                               Grid.Row="2"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                        <CheckBox IsChecked="{Binding Bucket.UseAudio, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding Bucket.AudioFile, UpdateSourceTrigger=PropertyChanged, Delay=1000}" Width="250"/>
+                        <c:GlyphButton Glyph="{StaticResource pathFolder}" 
+                                       Width="20" Height="20" Margin="5,0,0,0"
+                                       Command="{Binding BrowseAudioFileCommand}"
+                                       ToolTip="Browse for audio file..."/>
+                    </StackPanel>
+
                     <CheckBox Content="Dedupe" IsChecked="{Binding Bucket.Dedupe, UpdateSourceTrigger=PropertyChanged}" 
-                              Grid.Row="2" Grid.Column="1"/>
+                              Grid.Row="3" Grid.Column="1"/>
 
                     <CheckBox Content="Tray Notifications" IsChecked="{Binding Bucket.Notify, UpdateSourceTrigger=PropertyChanged}" 
-                              Grid.Row="3" Grid.Column="1"/>
+                              Grid.Row="4" Grid.Column="1"/>
+                    
 
                 </Grid>
             </GroupBox>

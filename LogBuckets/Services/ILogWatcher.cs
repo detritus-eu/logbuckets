@@ -10,6 +10,8 @@ namespace LogBuckets.Services
 
         event EventHandler<string> Line;
 
+        bool HtmlDecoderEnabled { get; set; }
+
         SynchronizationContext SynchronizationContext { get; set; }
     }
 }

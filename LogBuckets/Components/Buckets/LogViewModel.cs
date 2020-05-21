@@ -39,6 +39,7 @@ namespace LogBuckets.Components.Buckets
             _ringBuffer.Size = BufferSize;
 
             _logWatcher.SynchronizationContext = SynchronizationContext.Current;
+            _logWatcher.HtmlDecoderEnabled = true;
             _logWatcher.Line += In;
             _logWatcher.Line += (o, e) => { Out?.Invoke(o, e); };
         }

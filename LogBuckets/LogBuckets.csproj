@@ -68,6 +68,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -115,11 +116,13 @@
     <Compile Include="Models\EuLogEntry.cs" />
     <Compile Include="Services\BucketService.cs" />
     <Compile Include="Services\IBucketService.cs" />
+    <Compile Include="Shared\Pipes\AudioAlert.cs" />
     <Compile Include="Shared\Pipes\Bucket.cs" />
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Shared\Pipes\Deduper.cs" />
     <Compile Include="Shared\Pipes\Filter.cs" />
     <Compile Include="Services\ConfigurationManager.cs" />
+    <Compile Include="Shared\Pipes\IAudioAlert.cs" />
     <Compile Include="Shared\Pipes\IBucket.cs" />
     <Compile Include="Services\IConfigurationManager.cs" />
     <Compile Include="Services\ILogWatcher.cs" />

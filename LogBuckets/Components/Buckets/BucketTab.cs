@@ -1,7 +1,10 @@
 ﻿using LogBuckets.Models;
+using LogBuckets.Shared;
 using LogBuckets.Shared.Pipes;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace LogBuckets.Components.Buckets
 {
@@ -26,6 +29,8 @@ namespace LogBuckets.Components.Buckets
             Bucket = bucket ?? throw new ArgumentNullException(nameof(bucket));
 
             Bucket.PropertyChanged += (o, e) => { RaisePropertyChanged(string.Empty); };
+
+            BrowseAudioFileCommand = new CommandHandler(BrowseAudioFile);
         }
 
         #endregion
@@ -36,6 +41,7 @@ namespace LogBuckets.Components.Buckets
 
         public string Header { get => Bucket.Name; set => Bucket.Name = value; }
 
+        public ICommand BrowseAudioFileCommand { get; }
 
         private Configuration _config;
         public Configuration Config
@@ -54,6 +60,7 @@ namespace LogBuckets.Components.Buckets
             }
         }
 
+
         #endregion
 
         #region Private Methods
@@ -61,6 +68,16 @@ namespace LogBuckets.Components.Buckets
         private void Config_PropertyChanged(object sender, PropertyChangedEventArgs e) => OnConfigChanged();
 
         protected virtual void OnConfigChanged() { }
+
+        private void BrowseAudioFile()
+        {
+            var dlg = new OpenFileDialog();
+            dlg.Filter = "WAV Files (*.wav)|*.wav";
+            dlg.DefaultExt = "wav";
+            dlg.InitialDirectory = AudioAlert.AudioDirectory;
+            if (dlg.ShowDialog() == true) Bucket.AudioFile = dlg.FileName;
+        }
+
 
         #endregion
 

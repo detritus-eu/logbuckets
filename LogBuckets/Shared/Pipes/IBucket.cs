@@ -13,6 +13,8 @@ namespace LogBuckets.Shared.Pipes
         bool Notify { get; set; }
         int Size { get; set; }
         bool Dedupe { get; set; }
+        bool UseAudio { get; set; }
+        string AudioFile { get; set; }
 
         void Initialize(string id);
         void Initialize(BucketDto dto);

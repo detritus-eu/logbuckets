@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using System.Web;
 
 namespace LogBuckets.Services
 {
@@ -50,12 +51,15 @@ namespace LogBuckets.Services
         public event EventHandler<string> Line;
         private void RaiseLine(string line)
         {
+            if (HtmlDecoderEnabled) line = HttpUtility.HtmlDecode(line);
             if (SynchronizationContext != null) SynchronizationContext.Post((_) =>
              {
                  Line?.Invoke(this, line);
              }, null);
             else Line?.Invoke(this, line);
         }
+
+        public bool HtmlDecoderEnabled { get; set; }
 
         #endregion
 

@@ -10,7 +10,7 @@
         xmlns:sett="clr-namespace:LogBuckets.Components.Settings"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Entropia LogBuckets" Height="600" Width="900"
+        Title="Entropia LogBuckets" Height="800" Width="960"
         FontSize="{Binding Config.FontSize}"
         Style="{StaticResource FlatWindowStyle}">
 

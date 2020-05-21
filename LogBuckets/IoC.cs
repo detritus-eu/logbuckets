@@ -36,6 +36,7 @@ namespace LogBuckets
             Container.Register<IFilter, Filter>();
             Container.Register<IToaster, Toaster>();
             Container.Register<IDeduper, Deduper>();
+            Container.Register<IAudioAlert, AudioAlert>();
 
             // UI
 
