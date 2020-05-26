@@ -40,6 +40,7 @@
                 <Bold>Audio Alert</Bold> - Checkbox enables/disables; browse to any WAV file to play when a line matches.  Only WAV currently supported.<LineBreak/>
                 <Bold>Dedupe</Bold> - Checking this box will perform deduplication of incoming messages against the current bucket buffer, meaning any messages already existing will be ignored (useful against spam). This has a performance cost, so may not be recommended for very large bucket sizes or very active buckets.<LineBreak/>
                 <Bold>Tray Notifications</Bold> - Check this box to receive toast notification when a new line is added to the bucket.  Be aware that if you have a very active bucket this could be relatively annoying.<LineBreak/>
+                <Bold>Disabled</Bold> - Checking this box will suspend the log reading operations on this bucket.<LineBreak/>
             </TextBlock>
 
             <TextBlock Text="Filter Properties" Style="{StaticResource header1}"/>

@@ -38,6 +38,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Bucket Name:" Style="{StaticResource label}"/>
@@ -67,7 +68,10 @@
 
                     <CheckBox Content="Tray Notifications" IsChecked="{Binding Bucket.Notify, UpdateSourceTrigger=PropertyChanged}" 
                               Grid.Row="4" Grid.Column="1"/>
-                    
+
+                    <CheckBox Content="Disabled" IsChecked="{Binding Bucket.IsDisabled, UpdateSourceTrigger=PropertyChanged}" 
+                              Grid.Row="5" Grid.Column="1"/>
+
 
                 </Grid>
             </GroupBox>

@@ -21,6 +21,7 @@ namespace LogBuckets.Models
         public bool Notify { get; set; }
         public bool Dedupe { get; set; }
         public bool UseAudio { get; set; }
+        public bool IsDisabled { get; set; }
         public string AudioFile { get; set; }
         public FilterOptions Filter { get; set; }
         public string[] Buffer { get; set; }

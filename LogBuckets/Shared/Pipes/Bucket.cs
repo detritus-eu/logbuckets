@@ -164,6 +164,24 @@ namespace LogBuckets.Shared.Pipes
         }
 
 
+        private bool _isDisabled;
+        public bool IsDisabled
+        {
+            get { return _isDisabled; }
+            set
+            {
+                if (_isDisabled != value)
+                {
+                    _isDisabled = value;
+                    RaisePropertyChanged(nameof(IsDisabled));
+                    if (IsDisabled) Filter.Out -= _deduper.In;
+                    else Filter.Out += _deduper.In;
+                }
+            }
+        }
+
+
+
         public void Initialize(BucketDto dto)
         {
             if (dto == null) throw new ArgumentNullException(nameof(dto));
@@ -174,6 +192,7 @@ namespace LogBuckets.Shared.Pipes
             Dedupe = dto.Dedupe;
             UseAudio = dto.UseAudio;
             AudioFile = dto.AudioFile;
+            IsDisabled = dto.IsDisabled;
             Filter.Channel = dto.Filter.Channel;
             Filter.Author = dto.Filter.Author;
             Filter.Message = dto.Filter.Message;
@@ -190,7 +209,7 @@ namespace LogBuckets.Shared.Pipes
             if (_initialized) return;
 
             In = Filter.In;
-            Filter.Out += _deduper.In;
+            if (!IsDisabled) Filter.Out += _deduper.In;
             _deduper.Out += Buffer.In;
             Buffer.Out += _audioAlert.In;
             _audioAlert.Out += _toaster.In;
@@ -208,6 +227,7 @@ namespace LogBuckets.Shared.Pipes
                 Dedupe = Dedupe,
                 UseAudio = UseAudio,
                 AudioFile = AudioFile,
+                IsDisabled = IsDisabled,
                 Filter = new BucketDto.FilterOptions {
                     Channel = Filter.Channel,
                     Author = Filter.Author,
